@@ -55,12 +55,14 @@ func PostForm(url string, values url.Values) *GoHttpClient {
 	c := New()
 
 	resp, err := http.PostForm(url, values)
-	defer resp.Body.Close()
 
 	if err != nil {
 		c.err = err
 		return c
 	}
+	defer resp.Body.Close()
+
+
 
 	body, err := ioutil.ReadAll(resp.Body)
 
