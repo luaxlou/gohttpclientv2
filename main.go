@@ -33,9 +33,8 @@ func New() *GoHttpClient {
 }
 
 //Start with get
-func Get(url string) *GoHttpClient {
+func (c *GoHttpClient) Get(url string) *GoHttpClient {
 
-	c := New()
 
 	req, err := http.NewRequest("GET", url, nil)
 
@@ -51,9 +50,7 @@ func Get(url string) *GoHttpClient {
 }
 
 //Start with post
-func PostForm(url string, form url.Values) *GoHttpClient {
-
-	c := New()
+func (c *GoHttpClient) PostForm(url string, form url.Values) *GoHttpClient {
 
 	req, err := http.NewRequest("POST", url, strings.NewReader(form.Encode()))
 
@@ -74,9 +71,8 @@ func PostForm(url string, form url.Values) *GoHttpClient {
 }
 
 //Start with Raw
-func Raw(url string, bs []byte) *GoHttpClient {
+func (c *GoHttpClient) Raw(url string, bs []byte) *GoHttpClient {
 
-	c := New()
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bs))
 
