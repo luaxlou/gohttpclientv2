@@ -26,9 +26,9 @@ func (c *GoHttpClient) PostBody(url string, reqObj interface{}) *GoHttpClient {
 		log.Println(err.Error())
 		return c
 	}
-
+	c.Raw(url, bf.Bytes())
 	c.Header("Content-Type", "application/json")
 
 
-	return c.Raw(url, bf.Bytes())
+	return  c
 }
