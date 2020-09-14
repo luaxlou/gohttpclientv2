@@ -3,6 +3,7 @@ package gohttpclientv2
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 )
 
 func (c *GoHttpClient) Header(k, v string) *GoHttpClient {
@@ -22,6 +23,7 @@ func (c *GoHttpClient) PostBody(url string, reqObj interface{}) *GoHttpClient {
 	err := jsonEncoder.Encode(reqObj)
 
 	if err != nil {
+		log.Println(err.Error())
 		return c
 	}
 
