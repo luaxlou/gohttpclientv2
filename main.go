@@ -9,7 +9,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 type GoHttpClient struct {
@@ -51,18 +50,33 @@ func Get(url string) *GoHttpClient {
 }
 
 //Start with post
-func PostForm(url string, form url.Values) *GoHttpClient {
+func PostForm(url string, values url.Values) *GoHttpClient {
 
 	c := New()
 
-	req, err := http.NewRequest("POST", url, strings.NewReader(form.Encode()))
+	resp, err := http.PostForm(url, values)
+	defer resp.Body.Close()
 
 	if err != nil {
 		c.err = err
 		return c
 	}
 
-	c.req = req
+	body, err := ioutil.ReadAll(resp.Body)
+
+	if c.debug {
+		log.Println(string(body))
+	}
+
+	c.body = body
+	c.executed = true
+
+	c.statusCode = resp.StatusCode
+
+	if err != nil {
+		c.err = err
+		return c
+	}
 
 	return c
 }
