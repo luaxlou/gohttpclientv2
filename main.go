@@ -57,6 +57,12 @@ func PostForm(url string, form url.Values) *GoHttpClient {
 
 	req, err := http.NewRequest("POST", url, strings.NewReader(form.Encode()))
 
+	if c.debug {
+		for k, v := range form {
+			log.Println(k, "=", strings.Join(v, ","))
+		}
+	}
+
 	if err != nil {
 		c.err = err
 		return c
