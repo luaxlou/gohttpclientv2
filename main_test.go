@@ -7,7 +7,7 @@ import (
 )
 
 func TestGet(t *testing.T) {
-	s, err := Get("https://www.baidu.com").Exec().String()
+	s, err := New().Get("https://www.baidu.com").Exec().String()
 
 	if err != nil {
 		t.Fatal(err)
@@ -18,7 +18,7 @@ func TestGet(t *testing.T) {
 
 func TestPost(t *testing.T) {
 
-	res := PostForm("http://jd.com/pageNotExists",url.Values{
+	res := New().PostForm("http://jd.com/pageNotExists",url.Values{
 		"a":[]string{"b"},
 	}).Exec()
 
